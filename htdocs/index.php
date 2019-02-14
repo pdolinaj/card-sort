@@ -2,6 +2,7 @@
 
 set_include_path(dirname(__FILE__) . '/../include' . PATH_SEPARATOR .get_include_path());
 
+require_once('color.php');
 require_once('pack.php');
 require_once('minicard.php');
 require_once('businesscard.php');
@@ -13,18 +14,17 @@ $businesscard_pack = new pack();
 
 for ($i = 0; $i < minicard::pack_max; $i++) {
 	$minicard = new minicard();
-	$minicard->set_bg_colour(mk_rnd_greyscale());
+	$minicard->set_bg_colour(color::mk_rnd_greyscale());
 	$minicard->text = 'Pack ' . $i;
 	$minicard_pack[$i] = $minicard;
 }
 
 for ($i = 0; $i < businesscard::pack_max; $i++) {
 	$businesscard = new businesscard();
-	$businesscard->set_bg_colour(mk_rnd_greyscale());
+	$businesscard->set_bg_colour(color::mk_rnd_greyscale());
 	$businesscard->text = 'Pack ' . $i;
 	$businesscard_pack[$i] = $businesscard;
 }
-
 
 // Now we want to sort the pack so that the background colours are in order.
 // Luckily, there's a method in the pack object to do this!
@@ -34,19 +34,14 @@ $businesscard_pack->bgSort(true);
 
 // Now print them all out in pretty html
 
-print 'Minicards: contains ' . count($minicard_pack) . ' width a depth of ' . $minicard_pack->get_depth();
+print 'Minicards: contains ' . count($minicard_pack) . ' width a depth of ' . $minicard_pack->getDepth();
 foreach ($minicard_pack as $minicard) {
 	$minicard->render();
 }
 
-print 'Businesscards: contains ' . count($businesscard_pack) . ' width a depth of ' . $businesscard_pack->get_depth();
+print 'Businesscards: contains ' . count($businesscard_pack) . ' width a depth of ' . $businesscard_pack->getDepth();
 foreach ($businesscard_pack as $minicard) {
 	$minicard->render();
 }
 
-// Make a greyscale colour
-function mk_rnd_greyscale() {
-	$col = rand(0, 256);
-	$hex = dechex($col);
-	return '#' . $hex.$hex.$hex;
-}
+
