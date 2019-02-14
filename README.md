@@ -6,6 +6,7 @@
 1. The code had a bug when sorting colors with HEX value size of 3, e.g. "#FFF" which had to be converted into full 6 char "#FFFFFF" in order to be properly ordered.
 2. Changed the sorting method inside pack.php -> bgSort() to not doing 100 x 100 array loops which should improve performance
 3. Added some get / set methods for the "card" objects (business card, minicard) to allow more flexibility.
+4. Separated color generating to a new class.
 
 #### Suggestions
 
